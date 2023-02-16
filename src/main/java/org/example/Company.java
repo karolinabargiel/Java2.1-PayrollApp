@@ -8,30 +8,59 @@ import static org.example.UserData.getDataFromUserString;
 public class Company {
     List<Employee> employeeList = new ArrayList<>();
 
-    public void addEmployeeToList() {
-        boolean validation = false;
 
-        System.out.println("Imię: ");
-        String userInputFirstName = getDataFromUserString();
-        try {
-            validationString(userInputFirstName);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Enter value once again");
-        }
-        System.out.println("Nazwisko: ");
-        String userInputLastName = getDataFromUserString();
-        validationString(userInputLastName);
-        System.out.println("Zarobki: ");
+    public void addEmployeeToList() {
+        boolean validationFirstName = false;
+        boolean validationLastName = false;
+        boolean validationSalary = false;
+        String userInputFirstName;
+        String userInputLastName;
         double userInputSalary = 0;
-        try {
-            userInputSalary = getDataFromUserDouble();
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid format");
-        }
-        validationDouble(userInputSalary);
+
+        do {
+            System.out.println("First Name: ");
+            userInputFirstName = getDataFromUserString();
+            try {
+                validationString(userInputFirstName);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Enter value once again");
+                continue;
+            }
+            validationFirstName = true;
+        } while (!validationFirstName);
+
+        do {
+            System.out.println("Last Name: ");
+            userInputLastName = getDataFromUserString();
+            try {
+                validationString(userInputLastName);
+            }catch (IllegalArgumentException e) {
+                System.out.println("Enter value once again");
+                continue;
+            }
+            validationLastName = true;
+        } while (!validationLastName);
+
+        do {
+            System.out.println("Salary: ");
+            try {
+                userInputSalary = getDataFromUserDouble();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid format");
+                continue;
+            }
+            try {
+                validationDouble(userInputSalary);
+            } catch (IllegalArgumentException e) {
+                continue;
+            }
+            validationSalary = true;
+        } while (!validationSalary);
+
         Employee employee = new Employee(userInputFirstName, userInputLastName, userInputSalary);
         employeeList.add(employee);
     }
+
     //opcja 2
     public void printAllEmployeesData() {
         for (Employee employee : employeeList) {
@@ -50,7 +79,6 @@ public class Company {
     }
 
     public void validationString(String inputString) {
-
         if (inputString.trim().isEmpty()) {
             System.out.println("This can't be empty");
             throw new IllegalArgumentException(inputString);
