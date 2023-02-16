@@ -1,12 +1,10 @@
 package org.example;
-
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PayrollApp {
 
-    public static final int NUMBER_OF_EMPLOYEES_TO_PROVIDE = 2;
+    public static final int NUMBER_OF_EMPLOYEES_TO_PROVIDE = 1;
 
     public void run() {
         Company company = new Company();
@@ -16,6 +14,7 @@ public class PayrollApp {
         }
         chooseOption(company);
     }
+
     private void chooseOption(Company company) {
         int userInput = 0;
         do {
@@ -24,7 +23,7 @@ public class PayrollApp {
             try {
                 userInput = scan.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Invalid format");
+                System.out.println("Invalid format. Please provide numeric value.");
                 continue;
             }
             switch (userInput) {
@@ -39,7 +38,7 @@ public class PayrollApp {
 
     public void printMenu() {
         System.out.println("""
-                **************
+                ***************
                 Choose action:
                 1 - Print sum of all employees salary
                 2 – Display all employees data
