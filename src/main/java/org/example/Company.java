@@ -47,7 +47,6 @@ public class Company {
             try {
                 validationString(stringFromUser);
             } catch (IllegalArgumentException e) {
-                System.out.println("Enter value once again");
                 continue;
             }
             isValidate = true;
@@ -73,7 +72,7 @@ public class Company {
 
     public void validationString(String inputString) {
         if (inputString.trim().isEmpty()) {
-            System.out.println("This field cannot be empty.");
+            System.out.println("This field cannot be empty. Enter value once again.");
             throw new IllegalArgumentException(inputString);
         }
     }
